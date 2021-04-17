@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 1, 2021 11:45:05 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="org.bildit.model.hibernate.Users" table="USERS" schema="dbo" catalog="newDB" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="string">
+            <column name="USERNAME" length="50" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
