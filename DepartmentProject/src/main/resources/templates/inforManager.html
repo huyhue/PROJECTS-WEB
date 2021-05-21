@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+	<div class="container my-2">
+		<div class="row">
+			<div class="col-md-12">
+				<div th:replace="fragments/header :: header"></div>
+				<h1 class="text-center">
+					<i class="fas fa-caret-right"></i>Register Information
+				</h1>
+			</div>
+		</div>
+		<div align="center" style="margin-top: 50px;">
+			<form th:action="@{/save}" th:object="${department}" method="POST"
+				form="usrform" enctype="multipart/form-data">
+				<table class="aprt-tb" border="1">
+					<tr class="aprt-tags">
+						<td>Name</td>
+						<td><input type="text" placeholder="type input..."
+							th:field="*{name}" th:errorclass="is-invalid"></td>
+					</tr>
+					<tr class="aprt-tags">
+						<td>Address</td>
+						<td style="display: flex; outline: none; border: 0px; padding: 0; height: 50px; align-items: center;">
+							<input type="text" placeholder="type input..." class="addr-apert"
+							style="min-width: 200px; padding-left: 16px; width: 60%;"
+							th:field="*{address}" th:errorclass="is-invalid" id="newSearch"> 
+							<input type="button" value="Address search" class="addr-btn-search" id="searchButton">
+							
+							<input type="text" placeholder="type input..." class="addr-apert"
+							style="min-width: 300px; margin-left: 16px;" id="nameSearch"> 
+							<input type="text" placeholder="type input..." class="addr-apert"
+							style="min-width: 200px;" id="codeSearch">
+						</td>
+					</tr>
+					<tr class="aprt-tags">
+						<td>Area</td>
+						<td><input type="text" placeholder="type input..."
+							th:field="*{area}" th:errorclass="is-invalid" class="ip-sp"><span
+							class="sp-char" key-sp="2">m</span></td>
+					</tr>
+					<tr class="aprt-tags">
+						<td>Contain</td>
+						<td><input type="text" placeholder="type input..."
+							th:field="*{canContain}" th:errorclass="is-invalid" class="ip-sp"><span
+							class="sp-char" key-sp=""> Persons</span></td>
+					</tr>
+					<tr class="aprt-tags">
+						<td
+							style="display: flex; align-items: center; border: 0px; padding: 0;">
+							<div
+								style="padding-right: 10px; border-right: 1px solid black; height: 80px; display: flex; align-items: center; padding-left: 16px;">
+								Time</div>
+							<div style="width: 100%; text-align: center;">
+								<div style="border-bottom: 1px solid black; padding-bottom: 10px;">Limit Rental</div>
+								<div style="padding-top: 10px;">Rental Period</div>
+							</div>
+						</td>
+						<td style="padding: 0;"><input type="text"
+							placeholder="type input..." th:field="*{limitTimeRental}"
+							th:errorclass="is-invalid"
+							style="padding-left: 16px; margin-bottom: 10px;">
+							<div style="width: 100%; height: 1px; background-color: black;"></div>
+							<input type="text" placeholder="type input..."
+							th:field="*{rentalPeriod}" th:errorclass="is-invalid"
+							style="padding-left: 16px; margin-top: 10px;"></td>
+					</tr>
+					<tr class="aprt-tags">
+						<td>Descrisption</td>
+						<td>
+							<!--     <textarea rows="4" cols="50" name="comment" form="aprt-form" class="inf-useful"
+                            placeholder="type input..."  th:field="*{descrisption}" id="usrform"></textarea> -->
+							<input type="text" placeholder="type input..."
+							th:field="*{descrisption}" th:errorclass="is-invalid"
+							style="padding-left: 16px; margin-top: 10px;">
+						</td>
+					</tr>
+					<tr class="aprt-tags">
+						<td>Images</td>
+						<td>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{image}">
+							</div>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{image1}">
+							</div>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{image2}">
+							</div>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{image3}">
+							</div>
+						</td>
+					</tr>
+					<tr class="aprt-tags">
+						<td>Attachments</td>
+						<td>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{file}">
+							</div>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{file1}">
+							</div>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{file2}">
+							</div>
+							<div>
+								<input type="file" class="ip-aprt" th:field="*{file3}">
+							</div>
+						</td>
+					</tr>
+				</table>
+				<div>
+					<p style="color: red" th:if="${#fields.hasErrors('name')}"
+						th:errors="*{name}">Incorrect data</p>
+					<p style="color: red" th:if="${#fields.hasErrors('address')}"
+						th:errors="*{address}">Incorrect data</p>
+					<p style="color: red" th:if="${#fields.hasErrors('area')}"
+						th:errors="*{area}">Incorrect data</p>
+					<p style="color: red" th:if="${#fields.hasErrors('canContain')}"
+						th:errors="*{canContain}">Incorrect data</p>
+					<p style="color: red"
+						th:if="${#fields.hasErrors('limitTimeRental')}"
+						th:errors="*{limitTimeRental}">Incorrect data</p>
+					<p style="color: red" th:if="${#fields.hasErrors('rentalPeriod')}"
+						th:errors="*{rentalPeriod}">Incorrect data</p>
+					<p style="color: red" th:if="${#fields.hasErrors('descrisption')}"
+						th:errors="*{descrisption}">Incorrect data</p>
+				</div>
+				<div class="xm-aprt-ly">
+					<a th:href="@{/}" class="bt-sm-aprt">Back to homepage [[${ok}]]</a> <input
+						type="Submit" value="Submit" class="bt-sm-aprt">
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	 <!--  $("#codeSearch").val("Dolly Duck"); -->
+	<script th:inline="javascript">
+    $(document).ready(function(){
+    $("#searchButton").on("click", function(ev) {
+        $.ajax({
+            url : "/searchAddress",
+            type : "post",
+            data : {
+                "newSearch" : $("#newSearch").val()
+            },
+            success : function(data) {
+            	$("#nameSearch").val(data.name);
+            	$("#codeSearch").val(data.code); 
+                console.log(data.name);
+            },
+            error : function() {
+                console.log("There was an error");
+            }
+
+        });
+    });
+  });
+</script>
+</body>
+</html>

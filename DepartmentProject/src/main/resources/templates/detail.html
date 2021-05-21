@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+	<div class="container my-2">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">
+					<i class="fas fa-caret-right"></i> Detail Information
+				</h1>
+			</div>
+		</div>
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<th scope="row" colspan="2">Name</th>
+					<td>[[${depart.name}]]</td>
+				</tr>
+				<tr>
+					<th scope="row" colspan="2">Address</th>
+					<td>[[${depart.address}]]</td>
+				</tr>
+				<tr>
+					<th scope="row" colspan="2">Area</th>
+					<td>[[${depart.area}]] m2</td>
+				</tr>
+				<tr>
+					<th scope="row" colspan="2">Contain</th>
+					<td>[[${depart.canContain}]]</td>
+				</tr>
+				<tr>
+					<th scope="row" rowspan="2">Time Rent</th>
+					<th scope="row">Limit Time Rental</th>
+					<td>[[${depart.limitTimeRental}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Rental Period</th>
+					<td>[[${depart.rentalPeriod}]]</td>
+				</tr>
+				<tr>
+					<th scope="row" colspan="2">Descrisption</th>
+					<td>[[${depart.descrisption}]]</td>
+				</tr>
+				<tr>
+					<th scope="row" colspan="2">Images</th>
+					<td><div th:if="${listImage.isEmpty()}">
+							<div>No image</div>
+						</div>
+						<div th:each="image : ${listImage}">
+							<a class="d-inline"
+								th:href="@{/image/downloadFromDB/{name}(name=${image.name})}">[[${image.name}]]</a>
+						</div></td>
+				</tr>
+				<tr>
+					<th scope="row" colspan="2">Attachments</th>
+					<td>
+						<div th:if="${listFile.isEmpty()}">
+							<div>No file</div>
+						</div>
+						<div th:each="file : ${listFile}">
+							<a th:href="@{/file/downloadFromDB/{name}(name=${file.name})}">[[${file.name}]]</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="row">
+			<div class="ml-3">
+				<a class="btn btn-primary" th:href="@{/}"><i class="fas fa-list">
+						List</i></a>
+			</div>
+			<div class="ml-auto mr-3">
+				<a class="btn btn-primary"
+					th:href="@{/showEdit/{id}(id=${depart.id})}"> <i
+					class="fas fa-edit"></i></a> <a th:departmentId="${depart.id}"
+					th:href="@{/delete/{id}(id=${depart.id})}"
+					class="btn btn-danger link-delete"><i class="fas fa-trash"></i></a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

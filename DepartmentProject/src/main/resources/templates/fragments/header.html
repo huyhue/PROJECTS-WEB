@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div th:fragment="header">
+		<div class="row">
+			<div class="col-md-12">
+			<h1><i class="fas fa-caret-right"></i> Rental Facility Information Management</h1>
+			</div>
+		</div>
+		<div class="modal fade text-center" id="confirmModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="model-title">Delete Confirmation</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<span id="confirmText"> </span>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="btn btn-success" href=" " id="confirm">Yes</a>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

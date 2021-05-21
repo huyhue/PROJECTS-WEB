@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+	<div class="container my-2">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1>
+					<i class="fas fa-caret-right"></i>List Information
+				</h1>
+			</div>
+			<div class="ml-auto mr-3">
+				<form class="form-inline" th:action="@{/find}">
+					<div class="form-group mx-sm-3 mb-2">
+						<label for="name" class="sr-only">Name</label> <input type="text"
+							class="form-control" id="name" placeholder="Name"
+							th:value="${name}" name="name" required="required">
+					</div>
+					<button type="submit" class="btn btn-primary mb-2"><i class="fas fa-search"> Search</i></button>
+				</form>
+			</div>
+		</div>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Department ID</th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+							Name of rental facility</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=limitTimeRental&sortDir=' + ${reverseSortDir}}">
+							Limit Time Rental</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=rentalPeriod&sortDir=' + ${reverseSortDir}}">
+							Rental Period</a></th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="department : ${list}">
+					<td th:text="${department.id}"></td>
+					<td><a th:href="@{'/detail/' + ${department.id}}">
+							[[${department.name}]]</a></td>
+					<td th:text="${department.limitTimeRental}"></td>
+					<td th:text="${department.rentalPeriod}"></td>
+					<td><a class="btn btn-primary"
+					th:href="@{/showEdit/{id}(id=${department.id})}"><i class="fas fa-edit"></i></a>
+					</td>
+					<td><a th:departmentId="${department.id}"
+						th:href="@{/delete/{id}(id=${department.id})}"
+						class="btn btn-danger link-delete"><i class="fas fa-trash"></i></a>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div th:if="${totalPages > 1}">
+			<div class="row">
+				<div class="col">Total Rows: [[${totalItems}]]</div>
+				<div class="col">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+				<div class="col">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+						th:if="${currentPage != i}"
+						th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+						&nbsp;
+					</span>
+				</div>
+				
+
+				<div class="col">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="ml-auto mr-3">
+			<a th:href="@{/register}" class="btn btn-danger"><i class="fas fa-user-plus"> Resgister</i></a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
