@@ -24,7 +24,7 @@ public interface DepartmentService {
 
 	List<Department> findAllById(List<Integer> ids);
 
-	Iterable<Department> findAll();
+	List<Department> findAll();
 
 	boolean existsById(Integer id);
 

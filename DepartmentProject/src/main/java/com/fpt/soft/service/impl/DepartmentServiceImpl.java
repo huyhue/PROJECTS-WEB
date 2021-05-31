@@ -58,7 +58,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 	}
 
 	@Override
-	public Iterable<Department> findAll() {
+	public List<Department> findAll() {
 		return departmentRepository.findAll();
 	}
 

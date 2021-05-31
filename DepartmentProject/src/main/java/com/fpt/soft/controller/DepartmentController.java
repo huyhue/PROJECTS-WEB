@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +40,23 @@ public class DepartmentController {
 	@Autowired
 	private AddressService addressService;
     
+	@GetMapping("/user")
+	public String listForUser(Model model) {
+		List<Department> list= departmentService.findAll();
+		model.addAttribute("list", list);
+		return "user/list";
+	}
+	@GetMapping("/calendar/{id}")
+	public String calendar(ModelMap model, @PathVariable(name = "id") Integer id) {
+		Optional<Department> optDepart = departmentService.findById(id);
+		if (optDepart.isPresent()) {
+			model.addAttribute("department", optDepart.get());
+		}
+		model.addAttribute("listImage", optDepart.get().getImages());
+		model.addAttribute("listFile", optDepart.get().getImages());
+		return "user/calendar";
+	}
+	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		return findPaginated(1, "name", "asc", model, null);
@@ -99,7 +114,7 @@ public class DepartmentController {
 	}
 	
 	@RequestMapping(value="/searchAddress", method=RequestMethod.POST)
-	public @ResponseBody Address search (@RequestParam String newSearch, ModelMap model)
+	public @ResponseBody Address search(@RequestParam String newSearch, ModelMap model)
 	{   
 		Optional<Address> ad = addressService.findById(Integer.parseInt(newSearch));
 		Address result = ad.get();
@@ -123,7 +138,7 @@ public class DepartmentController {
 		}
 		List<Images> listImage = imagesService.findImagesByDepartmentId(optDepart.get().getId());
 		List<Attachments> listFile = attachmentsService.findAttachmentsByDepartmentId(optDepart.get().getId());
-		model.addAttribute("listImage", listImage);
+		model.addAttribute("listImage", optDepart.get().getImages());
 		model.addAttribute("listFile", listFile);
 		return "detail";
 	}

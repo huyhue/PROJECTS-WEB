@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+	<div class="container my-2">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">
+					<i class="fas fa-caret-right"></i> Infomation Booking
+				</h1>
+			</div>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">No</th>
+					<th scope="col">Name of rental facility</th>
+					<th scope="col">Time rent</th>
+					<th scope="col">Time booking</th>
+					<th scope="col">Status booking</th>
+					<th scope="col">Cancel booking</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="b : ${booking}">
+					<th th:text="${b.id}" scope="row"></th>
+					<td><a th:href="@{'/booking/detail/' + ${b.id}}">
+							[[${b.name}]]</a></td>
+					<td>[[${b.dateStart}]] <br /> [[${b.dateEnd}]]
+					</td>
+					<td th:text="${b.dateBooking}"></td>
+					<td th:text="${b.status} ? 'Activated' : 'Disabled'"></td>
+					<td>
+						<div th:if="${b.status}">
+							<a th:href="@{/booking/cancel/{id}(id=${b.id})}"
+								th:bookingId="${b.id}" class="btn btn-danger link-cancel">Cancel</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

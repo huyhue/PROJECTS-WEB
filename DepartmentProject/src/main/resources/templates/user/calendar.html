@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Department Management System</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/inforManager.css}">
+
+<!--Calendar  -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/mark-your-calendar.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/mark-your-calendar.js}"></script>
+
+</head>
+<body>
+	<div class="container my-2">
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="text-center">
+					<i class="fas fa-caret-right"></i>Booking rent
+				</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4>[[${department.name}]]</h4>
+				<h5>Address have [[${department.address}]] and
+					[[${department.area}]] m2.</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div id="picker" class="col-md-12"></div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div th:each="image : ${listImage}">
+					<img class="img-thumbnail"
+						th:src="@{/image/downloadFromDB/{name}(name=${image.name})}"
+						alt="">
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<h5 class="card-header">Description</h5>
+					<div class="card-body">
+						<h5 class="card-title">[[${department.descrisption}]]</h5>
+						<p class="card-text">
+						<p>Selected Start dates / times: </p>
+						<p id="selected-dates0"></p><br>
+						<p>Selected End dates / times: </p>
+						<p id="selected-dates1"></p><br>
+						<a th:href="@{/booking/{id}(id=${department.id})}" 
+						 class="btn btn-primary"  id="nextBtn">Next</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a th:href="@{/}" class="btn btn-danger mt-3">List</a>
+	</div>
+	<script th:inline="javascript">
+		$(document).ready(function(){
+	    $("#nextBtn").on("click", function(ev) {
+		    sessionStorage.setItem("day0", $("#selected-dates0").text());
+		    sessionStorage.setItem("day1", $("#selected-dates1").text());
+	    });
+  });
+	</script>
+	<script type="text/javascript">
+       (function($) {
+          $('#picker').markyourcalendar({
+            availability: [
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00']
+            ],
+            isMultiple: true,
+            onClick: function(ev, data) {
+              var i = 0;
+              $.each(data, function(k,val) { 
+                if(i==0){
+                  $('#selected-dates0').html(`<p>` + val +  `</p>`);
+                }
+                if(i==1){
+                  $('#selected-dates1').html(`<p>`  + val + `</p>`);
+                }
+                i++;
+              });
+            },
+            onClickNavigator: function(ev, instance) {
+              var arr = [
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00'],
+              ['1:00', '2:00', '3:00', '4:00', '5:00']
+              ]
+              instance.setAvailability(arr);
+            }
+          });
+        })(jQuery);
+    </script>
+</body>
+</html>

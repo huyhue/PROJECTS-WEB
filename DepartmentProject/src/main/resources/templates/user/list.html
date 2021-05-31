@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+	<div class="container my-2">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">
+					<i class="fas fa-caret-right"></i> Menu User List
+				</h1>
+			</div>
+		</div>
+
+		<div class="card-group">
+			<div class="card" th:each="department : ${list}">
+				<div th:each="image : ${department.images}">
+					<img class="card-img-top" th:src="@{/image/downloadFromDB/{name}(name=${image.name})}" alt="">
+				</div>
+				<div class="card-body">
+					<p class="card-text">-Area: [[${department.area}]] m2</p>
+					<p class="card-text">-Contain: [[${department.canContain}]] Persons</p>
+				</div>
+				<div class="card-footer">
+					<a class="text-center" th:href="@{/calendar/{id}(id=${department.id})}"><h5 class="card-title">[[${department.name}]]</h5></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

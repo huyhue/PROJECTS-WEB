@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+	<div class="container my-2">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">
+					<i class="fas fa-caret-right"></i>Booking confirm
+				</h1>
+			</div>
+
+		</div>
+		<div class="jumbotron">
+			<h1 class="display-4">Registration Completed Booking</h1>
+			<p class="lead">Name of rental facility: [[${booking.department.name}]]</p>
+			<hr class="my-4">
+			<p>Time: [[${booking.dateStart}]]  ~  [[${booking.dateEnd}]]</p>
+			<a th:href="@{/booking/list}" class="btn btn-success"><i
+						class="fas fa-user-plus">List</i></a>
+		</div>
+	</div>
+</body>
+</html>

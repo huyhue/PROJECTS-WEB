@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+	<div class="container my-2">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">
+					<i class="fas fa-caret-right"></i>Information Detail
+				</h1>
+			</div>
+		</div>
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<th colspan="2" scope="row">Name of rental facility</th>
+					<td>[[${booking.department.name}]]</td>
+				</tr>
+				<tr>
+					<th rowspan="5">Registrants</th>
+					<th scope="row">Name</th>
+					<td>[[${booking.name}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Phone</th>
+					<td>[[${booking.phone}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Moblie</th>
+					<td>[[${booking.mobile}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Email</th>
+					<td>[[${booking.email}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Address</th>
+					<td>[[${booking.address}]]</td>
+				</tr>
+				<tr>
+					<th rowspan="5">Booking information</th>
+					<th scope="row">Rental start date</th>
+					<td>[[${booking.dateStart}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Rental end date</th>
+					<td>[[${booking.dateEnd}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Booking time</th>
+					<td>[[${booking.dateBooking}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Number of participants</th>
+					<td>[[${booking.person}]]</td>
+				</tr>
+				<tr>
+					<th scope="row">Usage content</th>
+					<td>[[${booking.content}]]</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<a th:href="@{/booking/list}" class="btn btn-success"><i
+				class="fas fa-user-plus">List</i></a>
+			<div class="ml-auto mr-3">
+				<div th:if="${booking.status}">
+					<a th:href="@{/booking/cancel/{id}(id=${booking.id})}"
+						th:bookingId="${booking.id}" class="btn btn-danger link-cancel">Cancel
+						Booking</a>
+				</div>
+				<div th:unless="${booking.status}">
+					<div><a class="btn btn-primary">Canceled</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
